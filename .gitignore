@@ -16,7 +16,8 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
-
+appsettings.json
+appsettings.Development.json
 # =========================
 # Visual Studio
 # =========================
