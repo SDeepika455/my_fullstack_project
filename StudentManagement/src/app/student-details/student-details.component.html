@@ -1,0 +1,69 @@
+<button class="addStudent" (click)="showForm=true">Add Student</button>
+<div class="studentTable">
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Phone</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Gender</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students">
+                <td>{{student?.id}}</td>
+                <td>{{student?.name}}</td>
+                <td>{{student?.email}}</td>
+                <td>{{student?.phone}}</td>
+                <td>{{student?.city}}</td>
+                <td>{{student?.state}}</td>
+                <td>{{student?.gender}}</td>
+                <td>
+                    <button (click)="editStudent(student)" class="editBtn">Edit</button>
+                    <button (click)="deleteStudent(student.id)" class="deleteBtn">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="sForm">
+    <div class="form-container" *ngIf="showForm">
+    <!-- <h1 class="">Student Form</h1> -->
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <label for="id" name="id">ID</label>
+        <input type="text" id="id" name="id" formControlName="id">
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" formControlName="name">
+        <small class="error-msg" *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched">Enter your name</small>
+        <small class="error-msg" *ngIf="studentForm.get('name')?.errors?.['minlength']">Minimum Length is required</small>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" formControlName="email">
+        <small class="error-msg" *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">Enter your email address</small>
+        <small class="error-msg" *ngIf="studentForm.get('email')?.errors?.['email']">Enter your correct email</small>
+
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" formControlName="phone">
+        <small class="error-msg" *ngIf="studentForm.get('phone')?.invalid && studentForm.get('phone')?.touched">Enter your Phone number</small>
+        <small class="error-msg" *ngIf="studentForm.get('phone')?.errors?.['pattern']">Please must fill the correct phone number</small>
+
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" formControlName="city">
+
+        <label for="state">State</label>
+        <input type="text" id="state" name="state" formControlName="state">
+
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" name="gender" formControlName="gender">
+        <div class="d-flex align-items-center justify-content-between">
+            <button type="submit" class="savebtn">{{this.studentForm.value.id?'Update':'Add'}}</button>
+            <button type="button" class="cancelbtn" (click)="showForm=false">Cancel</button>
+        </div>
+    </form>
+</div>
+</div>
